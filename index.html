@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chat</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Screen -->
+        <div id="login-screen" class="login-screen">
+            <div class="glass-panel">
+                <h2>เข้าสู่ห้องแชท</h2>
+                <input type="text" id="username" placeholder="ชื่อของคุณ" maxlength="20">
+                <button onclick="login()">เข้าร่วม</button>
+            </div>
+        </div>
+
+        <!-- Chat Room -->
+        <div id="chat-room" class="chat-room hidden">
+            <div class="sidebar glass-panel">
+                <h3>ผู้ใช้ออนไลน์</h3>
+                <div id="online-users" class="online-users"></div>
+            </div>
+            
+            <div class="chat-area glass-panel">
+                <div id="messages" class="messages"></div>
+                <div class="input-area">
+                    <input type="text" id="message-input" placeholder="พิมพ์ข้อความ...">
+                    <button onclick="sendMessage()">ส่ง</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
