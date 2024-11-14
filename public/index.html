@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Chat Application</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Screen -->
+        <div id="login-screen" class="login-screen">
+            <div class="glass-panel login-form">
+                <div class="logo">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h2>Welcome to ChatRoom</h2>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Enter your username" maxlength="20">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-image"></i>
+                    <input type="text" id="avatar-url" placeholder="Avatar URL (optional)">
+                </div>
+                <button class="primary-btn" onclick="login()">
+                    <i class="fas fa-sign-in-alt"></i> Join Chat
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Room -->
+        <div id="chat-room" class="chat-room hidden">
+            <div class="sidebar glass-panel">
+                <div class="user-profile">
+                    <img id="current-user-avatar" src="default-avatar.png" alt="avatar">
+                    <span id="current-user-name"></span>
+                    <button class="settings-btn" onclick="toggleSettings()">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+                
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('users')">
+                        <i class="fas fa-users"></i> Users
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('rooms')">
+                        <i class="fas fa-door-open"></i> Rooms
+                    </button>
+                </div>
+
+                <div id="users-tab" class="tab-content">
+                    <h3>Online Users</h3>
+                    <div id="online-users" class="online-users"></div>
+                </div>
+
+                <div id="rooms-tab" class="tab-content hidden">
+                    <h3>Chat Rooms</h3>
+                    <div id="room-list" class="room-list"></div>
+                    <button class="create-room-btn" onclick="createRoom()">
+                        <i class="fas fa-plus"></i> Create Room
+                    </button>
+                </div>
+            </div>
+            
+            <div class="chat-area glass-panel">
+                <div class="chat-header">
+                    <h3 id="current-room">General Chat</h3>
+                    <div class="chat-actions">
+                        <button class="action-btn" onclick="toggleEmoji()">
+                            <i class="far fa-smile"></i>
+                        </button>
+                        <button class="action-btn" onclick="toggleAttachment()">
+                            <i class="fas fa-paperclip"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="messages" class="messages"></div>
+
+                <div id="emoji-picker" class="emoji-picker hidden">
+                    <!-- Emoji picker content will be dynamically added -->
+                </div>
+
+                <div class="input-area">
+                    <input type="text" id="message-input" placeholder="Type your message...">
+                    <button class="send-btn" onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal hidden">
+            <div class="modal-content glass-panel">
+                <h3>Settings</h3>
+                <div class="settings-form">
+                    <div class="input-group">
+                        <label>Theme</label>
+                        <select id="theme-selector" onchange="changeTheme()">
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                            <option value="system">System</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Notification Sound</label>
+                        <input type="checkbox" id="notification-sound" checked>
+                    </div>
+                    <button class="primary-btn" onclick="saveSettings()">Save Changes</button>
+                </div>
+                <button class="close-btn" onclick="toggleSettings()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+<!-- Audio elements for notifications -->
+<audio id="message-sound" src="/public/message.mp3" preload="auto"></audio>
+<audio id="notification-sound" src="/public/notification.mp3" preload="auto"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
